@@ -12,7 +12,10 @@ export default function TourMap() {
   });
 
   const [coordinates, setCoordinates] = useState<Coordinates>();
-  useGeoLocation(setCoordinates);
+  const getCoordinates = ({ lat, lng }: Coordinates) => {
+    setCoordinates({ lat, lng });
+  };
+  useGeoLocation(getCoordinates);
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>지도 불러오기 실패</div>;
