@@ -1,10 +1,10 @@
 import type { Coordinates } from "../types";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export default function useGeoLocation() {
-  const [coordinates, setCoordinates] = useState<Coordinates>();
-
+export default function useGeoLocation(
+  setCoordinates: ({}: Coordinates) => void,
+) {
   // Hook은 절대로 조건문/반복문/try/catch 안에 넣으면 안됨
   // Rules of Hooks 위반
   useEffect(() => {
@@ -20,5 +20,4 @@ export default function useGeoLocation() {
       },
     );
   }, []);
-  return coordinates;
 }

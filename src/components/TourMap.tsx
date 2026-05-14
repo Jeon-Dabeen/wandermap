@@ -1,5 +1,7 @@
+import type { Coordinates } from "../types";
 import useGeoLocation from "../hooks/useGeoLocation";
 
+import { useState } from "react";
 import { useKakaoLoader, Map } from "react-kakao-maps-sdk";
 
 export default function TourMap() {
@@ -9,7 +11,8 @@ export default function TourMap() {
     libraries: ["clusterer", "drawing", "services"],
   });
 
-  const coordinates = useGeoLocation();
+  const [coordinates, setCoordinates] = useState<Coordinates>();
+  useGeoLocation(setCoordinates);
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>지도 불러오기 실패</div>;
