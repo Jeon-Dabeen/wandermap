@@ -1,10 +1,7 @@
-function App() {
+import WanderDetail from "./components/WanderDetail";
 
-  return (
-    <>
-      
-    </>
-  )
+function App() {
+  return <WanderDetail />;
 }
 
 export default App;
