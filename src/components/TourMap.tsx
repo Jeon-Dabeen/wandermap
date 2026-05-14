@@ -11,18 +11,18 @@ export default function TourMap() {
     libraries: ["clusterer", "drawing", "services"],
   });
 
-  const [coordinates, setCoordinates] = useState<Coordinates>();
-  const getCoordinates = ({ lat, lng }: Coordinates) => {
-    setCoordinates({ lat, lng });
+  const [currentPosition, setCurrentPosition] = useState<Coordinates>();
+  const getCurrentPosition = ({ lat, lng }: Coordinates) => {
+    setCurrentPosition({ lat, lng });
   };
-  useGeoLocation(getCoordinates);
+  useGeoLocation(getCurrentPosition);
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>지도 불러오기 실패</div>;
-  if (!coordinates) return <div>위치 불러오기 싪패</div>;
+  if (!currentPosition) return <div>위치 불러오기 싪패</div>;
   return (
     <Map
-      center={coordinates}
+      center={currentPosition}
       level={3}
       style={{ width: "500px", height: "500px" }}
     />
