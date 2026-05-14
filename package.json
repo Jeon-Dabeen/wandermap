@@ -1,8 +1,20 @@
 {
   "name": "wandermap",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "homepage": "https://github.com/Jeon-Dabeen/wandermap#readme",
+  "bugs": {
+    "url": "https://github.com/Jeon-Dabeen/wandermap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeon-Dabeen/wandermap.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "eslint.config.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
