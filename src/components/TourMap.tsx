@@ -1,8 +1,8 @@
 import useGeoLocation from "../hooks/useGeoLocation";
+import useFetch from "../hooks/useFetch";
 import PositionContext from "../contexts/PositionContext";
 import type { Positions } from "../types";
-
-import mock from "../mock/mock.json";
+import { ENV } from "../env";
 
 import { useContext, useEffect, useRef, useState } from "react";
 import {
@@ -15,7 +15,7 @@ import {
 export default function TourMap() {
   const [loading, error] = useKakaoLoader({
     // VITE로 프로젝트를 빌드할 경우 환경변수 불어오는 방법
-    appkey: import.meta.env.VITE_KAKAO_API_KEY,
+    appkey: ENV.KAKAO_API_KEY,
     libraries: ["clusterer", "drawing", "services"],
   });
 
@@ -29,12 +29,12 @@ export default function TourMap() {
     useGeoLocation(changePosition);
   }, []);
 
-  if (!mapRef) throw new Error("Map 에러");
   useEffect(() => {
+    if (!mapRef) throw new Error("Map 에러");
     setLevel(mapRef.current?.getLevel() || 1);
   }, [level]);
 
-  const positions: Positions[] = mock.map((d) => ({
+  const positions: Positions[] = useFetch(currentPosition!).map((d) => ({
     title: d.title,
     coordinates: {
       lat: Number(d.mapy),
@@ -45,7 +45,8 @@ export default function TourMap() {
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>지도 불러오기 실패</div>;
-  if (!currentPosition) return <div>위치 불러오기 싪패</div>;
+  if (!currentPosition) return <div>현재 위치 실패</div>;
+
   return (
     <Map
       center={currentPosition}
