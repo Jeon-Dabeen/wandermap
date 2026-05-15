@@ -1,8 +1,13 @@
 import useGeoLocation from "../hooks/useGeoLocation";
 import PositionContext from "../contexts/PositionContext";
 
-import { useContext, useEffect } from "react";
-import { useKakaoLoader, Map } from "react-kakao-maps-sdk";
+import { useContext, useEffect, useRef, useState } from "react";
+import {
+  useKakaoLoader,
+  Map,
+  MapMarker,
+  ZoomControl,
+} from "react-kakao-maps-sdk";
 
 export default function TourMap() {
   const [loading, error] = useKakaoLoader({
@@ -12,11 +17,19 @@ export default function TourMap() {
   });
 
   const context = useContext(PositionContext);
+  const mapRef = useRef<kakao.maps.Map>(null);
+  const [level, setLevel] = useState(1);
+
   if (!context) throw new Error("Context 에러");
   const { changePosition, currentPosition } = context;
   useEffect(() => {
     useGeoLocation(changePosition);
   }, []);
+
+  if (!mapRef) throw new Error("Map 에러");
+  useEffect(() => {
+    setLevel(mapRef.current?.getLevel() || 1);
+  }, [level]);
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>지도 불러오기 실패</div>;
@@ -24,8 +37,11 @@ export default function TourMap() {
   return (
     <Map
       center={currentPosition}
-      level={3}
+      level={level}
       style={{ width: "500px", height: "500px" }}
-    />
+    >
+      <MapMarker position={currentPosition} />
+      <ZoomControl position={"BOTTOMLEFT"} />
+    </Map>
   );
 }
