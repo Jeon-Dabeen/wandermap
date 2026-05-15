@@ -12,7 +12,8 @@ export default function useFetch(currentPosition: Coordinates) {
     const fetchInfos = async () => {
       const url =
         ENV.TOUR_OPEN_API_URL +
-        `?MobileOS=WEB&MobileApp=Wandermap&MapX=${currentPosition.lng}&MapY=${currentPosition.lat}&radius=1000&serviceKey=${ENV.TOUR_API_KEY}&_type=json`;
+        `?MobileOS=WEB&MobileApp=Wandermap&MapX=${126.97925}&MapY=${37.57925}&radius=1000&serviceKey=${ENV.TOUR_API_KEY}&_type=json`;
+      // `?MobileOS=WEB&MobileApp=Wandermap&MapX=${currentPosition.lng}&MapY=${currentPosition.lat}&radius=1000&serviceKey=${ENV.TOUR_API_KEY}&_type=json`;
 
       const response = await fetch(url);
       const data = await response.json();

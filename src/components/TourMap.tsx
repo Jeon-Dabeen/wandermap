@@ -49,11 +49,13 @@ export default function TourMap() {
 
   return (
     <Map
-      center={currentPosition}
+      // center={currentPosition}
+      center={{ lat: 37.57925, lng: 126.97925 }}
       level={level}
-      style={{ width: "500px", height: "500px" }}
+      style={{ width: "1000px", height: "700px" }}
     >
-      <MapMarker position={currentPosition} key={0} />
+      {/* <MapMarker position={currentPosition} key={0} /> */}
+      <MapMarker position={{ lat: 37.57925, lng: 126.97925 }} key={0} />
       {positions.map((position) => (
         <MapMarker
           position={position.coordinates}
