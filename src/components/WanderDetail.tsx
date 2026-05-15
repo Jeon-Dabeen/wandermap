@@ -1,3 +1,4 @@
+import InfosContext from "../contexts/InfosContext";
 import MapDetail from "./MapDetail";
 
 export default function WanderDetail() {
@@ -5,7 +6,9 @@ export default function WanderDetail() {
     <div>
       <header>Wandermap</header>
       <main>
-        <MapDetail />
+        <InfosContext.Provider value={null}>
+          <MapDetail />
+        </InfosContext.Provider>
       </main>
       <footer>&copy;다빈</footer>
     </div>
