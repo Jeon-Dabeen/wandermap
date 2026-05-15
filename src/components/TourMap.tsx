@@ -1,5 +1,8 @@
 import useGeoLocation from "../hooks/useGeoLocation";
 import PositionContext from "../contexts/PositionContext";
+import type { Positions } from "../types";
+
+import mock from "../mock/mock.json";
 
 import { useContext, useEffect, useRef, useState } from "react";
 import {
@@ -31,6 +34,15 @@ export default function TourMap() {
     setLevel(mapRef.current?.getLevel() || 1);
   }, [level]);
 
+  const positions: Positions[] = mock.map((d) => ({
+    title: d.title,
+    coordinates: {
+      lat: Number(d.mapy),
+      lng: Number(d.mapx),
+    },
+    contentId: Number(d.contentid),
+  }));
+
   if (loading) return <div>로딩</div>;
   if (error) return <div>지도 불러오기 실패</div>;
   if (!currentPosition) return <div>위치 불러오기 싪패</div>;
@@ -40,7 +52,14 @@ export default function TourMap() {
       level={level}
       style={{ width: "500px", height: "500px" }}
     >
-      <MapMarker position={currentPosition} />
+      <MapMarker position={currentPosition} key={0} />
+      {positions.map((position) => (
+        <MapMarker
+          position={position.coordinates}
+          title={position.title}
+          key={position.contentId}
+        />
+      ))}
       <ZoomControl position={"BOTTOMLEFT"} />
     </Map>
   );
