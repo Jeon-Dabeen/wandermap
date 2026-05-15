@@ -1,7 +1,8 @@
 import type { Coordinates } from "../types";
 import useGeoLocation from "../hooks/useGeoLocation";
+import PositionContext from "../contexts/PositionContext";
 
-import { useState } from "react";
+import { useContext } from "react";
 import { useKakaoLoader, Map } from "react-kakao-maps-sdk";
 
 export default function TourMap() {
@@ -11,11 +12,11 @@ export default function TourMap() {
     libraries: ["clusterer", "drawing", "services"],
   });
 
-  const [currentPosition, setCurrentPosition] = useState<Coordinates>();
-  const getCurrentPosition = ({ lat, lng }: Coordinates) => {
-    setCurrentPosition({ lat, lng });
-  };
-  useGeoLocation(getCurrentPosition);
+  const context = useContext(PositionContext);
+  if (!context) throw new Error("Context 에러");
+
+  const { changePosition, currentPosition } = context;
+  useGeoLocation(changePosition);
 
   if (loading) return <div>로딩</div>;
   if (error) return <div>지도 불러오기 실패</div>;
