@@ -25,9 +25,8 @@ export default function TourMap() {
 
   if (!context) throw new Error("Context 에러");
   const { changePosition, currentPosition } = context;
-  useEffect(() => {
-    useGeoLocation(changePosition);
-  }, []);
+
+  useGeoLocation(changePosition);
 
   useEffect(() => {
     if (!mapRef) throw new Error("Map 에러");
@@ -49,8 +48,7 @@ export default function TourMap() {
 
   return (
     <Map
-      // center={currentPosition}
-      center={{ lat: 37.57925, lng: 126.97925 }}
+      center={currentPosition}
       level={level}
       style={{ width: "1000px", height: "700px" }}
     >
