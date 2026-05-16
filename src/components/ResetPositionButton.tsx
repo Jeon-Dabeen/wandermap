@@ -8,12 +8,13 @@ export default function ResetPositionButton() {
   const context = useContext(PositionContext);
   if (!context) throw new Error("Context 에러");
   const { changePosition } = context;
+  const resetToCurrentPosition = useGeoLocation;
 
-  const resetToCurrentPosition = () => {
-    useGeoLocation(changePosition);
+  const handleResetPosition = () => {
+    resetToCurrentPosition(changePosition);
   };
   return (
-    <button onClick={resetToCurrentPosition}>
+    <button onClick={handleResetPosition}>
       <RadarIcon />
     </button>
   );
