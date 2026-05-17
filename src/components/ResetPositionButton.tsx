@@ -7,11 +7,11 @@ import RadarIcon from "@mui/icons-material/Radar";
 export default function ResetPositionButton() {
   const context = useContext(PositionContext);
   if (!context) throw new Error("Context 에러");
-  const { changePosition } = context;
+  const { setCurrentPosition } = context;
   const resetToCurrentPosition = useGeoLocation;
 
   const handleResetPosition = () => {
-    resetToCurrentPosition(changePosition);
+    resetToCurrentPosition(setCurrentPosition);
   };
   return (
     <button onClick={handleResetPosition}>

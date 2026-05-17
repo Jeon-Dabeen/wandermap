@@ -2,8 +2,8 @@ import { createContext } from "react";
 import type { Coordinates } from "../types";
 
 type PositionContextType = {
-  changePosition: (coordinates: Coordinates) => void;
   currentPosition: Coordinates | undefined;
+  setCurrentPosition: (coordinates: Coordinates) => void;
 };
 
 const PositionContext = createContext<PositionContextType | null>(null);
